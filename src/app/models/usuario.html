@@ -1,0 +1,123 @@
+<div class="usuario-page">  
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      <img class="user-avatar" src="assets/images/logo.png" width="150px" />
+      <h1>Control de Usuarios</h1>
+      <button class="btn rounded-btn" (click)="enIngreso()">Ingresar Usuario</button>
+      &nbsp;
+      <button class="btn rounded-btn" (click)="enConsulta()">Consultar Usuario</button>
+    </div>
+  </div>
+  &nbsp;
+  <hr>
+  &nbsp;
+  <div *ngIf="ingreso" class="row justify-content-md-center">
+    <div class="col-md-4">
+      <h1>Registro de Usuario</h1>
+        <div class="form-content">
+          <div class="form-group">
+            <input type="text" class="form-control input-underline input-us" placeholder="Cedula de Identidad" minlength="8" maxlength="10" required pattern="[0-9]+" [(ngModel)] = "usuario.ci">
+            </div>
+            <div class="form-group">
+            <input type="text" class="form-control input-underline input-us" placeholder="Primer Nombre" required [(ngModel)] = "usuario.nombre1">
+            &nbsp;
+            <input type="text" class="form-control input-underline input-us" placeholder="Segundo Nombre" [(ngModel)] = "usuario.nombre2">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control input-underline input-us" id="" placeholder="Primer Apellido" required="true" [(ngModel)] = "usuario.apellido1">
+            &nbsp;
+            <input type="text" class="form-control input-underline input-us" id="" placeholder="Segundo Apellido" [(ngModel)] = "usuario.apellido2">
+          </div>
+          <div class="form-group">
+            <label class="form-control label-us">Fecha de Nacimiento</label>
+            <input type="date" class="form-control" style="color:gray" id="" placeholder="Fecha Nacimiento" [(ngModel)] = "usuario.fechaNacimiento">
+            </div>
+          <div class="form-group">
+            <label class="form-control label-us">Pais de Nacimiento</label>
+            &nbsp;
+            <select style="color:gray">
+              <option label="Argentina" value="Argentina">Argentina</option>
+              <option label="Chile" value="Chile">Chile</option>
+              <option label="Colombia" value="Colombia">Colombia</option>
+              <option label="Cuba" value="Cuba">Cuba</option>
+              <option label="Ecuador" value="Ecuador">Ecuador</option>
+              <option label="Venezuela" value="Venezuela">Venezuela</option>
+              <option label="Otro" value="Otro">Otro</option>
+            </select>
+            &nbsp;
+            &nbsp;
+            <label class="form-control label-us">Sexo</label>
+            <select style="color:gray">
+              <option label="Femenino" value="Femenino">Femenino</option>
+              <option label="Masculino" value="Mascullino">Masculino</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control input-underline input-us" id="" placeholder="Telefono" minlength="8" maxlength="10" pattern="[0-9]+" [(ngModel)] = "usuario.telefono">
+            &nbsp;
+            <input type="text" class="form-control input-underline input-us" id="" placeholder="Direccion" [(ngModel)] = "usuario.direccion">
+          </div>
+        </div>
+        <button class="btn rounded-btn-small" (click)="incluirUsuario()"> Ingresar </button>&nbsp;
+        <button class="btn rounded-btn-small" (click)="cancelar()"> Cancelar </button>
+        &nbsp;
+        &nbsp;
+    </div>
+  </div >
+  <div *ngIf="consulta" class="row justify-content-md-center">
+    <div class="col-md-4">
+      <h1>Consulta de Usuario</h1>
+      <div class="form-content">
+        <label class="form-control label-us">Cedula de Identidad</label>
+        <input type="text" [(ngModel)]="ci">
+        <input type="submit" class="btn rounded-btn-small" (click)='getUsuarioCi()' value="Buscar">
+      </div>
+      <div *ngIf="usuarioConsulta!=null">
+          <div class="form-content">
+            <div class="form-group">
+              <label class="form-control label-us">Primer Nombre</label>
+              <input type="text" class="form-control input-underline input-us" value = {{usuarioConsulta.nombre1}} disabled=""> 
+              &nbsp;
+              <label class="form-control label-us">Segundo Nombre</label>
+              <input type="text" class="form-control input-underline input-us" value = {{usuarioConsulta.nombre2}} disabled>
+            </div>
+            <div class="form-group">
+              <label class="form-control label-us">Primer Apellido</label>
+              <input type="text" class="form-control input-underline input-us" value = {{usuarioConsulta.apellido1}} disabled>
+              &nbsp;
+              <label class="form-control label-us">Segundo Apellido</label>
+              <input type="text" class="form-control input-underline input-us" value = {{usuarioConsulta.apellido2}} disabled>
+            </div>
+            <div class="form-group">
+              <label class="form-control label-us">Fecha de Nacimiento: {{usuarioConsulta.fechaNacimiento | date:'dd/MM/yyy'}}</label>
+              &nbsp;
+              <label class="form-control label-us">Pais de Nacimiento</label>
+              <input type="text" class="form-control input-underline input-us" value = {{usuarioConsulta.paisNacimiento}} disabled>
+            </div>
+            <div class="form-group">
+              <label class="form-control label-us">Sexo</label>
+              <input type="text" class="form-control input-underline input-us" value = {{usuarioConsulta.genero}} disabled>
+              &nbsp;
+              <label class="form-control label-us">Fecha de Creacion: {{usuarioConsulta.fechaCreacion | date:'dd/MM/yyy'}}</label>
+            </div>
+            <div>
+              <label class="form-control label-us">Telefono</label>
+              <input type="text" class="form-control input-underline input-us" minlength="8" maxlength="10" pattern="[0-9]+" value = {{usuarioConsulta.telefono}} disabled>
+              &nbsp;
+              <label class="form-control label-us">Direccion</label>
+              <input type="text" class="form-control input-underline input-us" value = {{usuarioConsulta.direccion}} disabled>
+            </div>
+          </div>  
+          <button class="btn rounded-btn-small" (click)="cancelar()"> Cancelar </button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="error">Error: {{error.status}} - {{error.statusText}}</div>
+  <div *ngIf="validationError">
+    <ul>
+      <li *ngFor="let message of validationError.messages">
+        <strong>{{message.property}}</strong> - {{message.message}}
+      </li>
+    </ul>
+  </div>
+</div>
